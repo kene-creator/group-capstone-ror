@@ -17,7 +17,7 @@ class RecipesController < ApplicationController
     end
   end
 
-  def show 
+  def show
     @foods = Food.all
   end
 
