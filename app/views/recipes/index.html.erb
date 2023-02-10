@@ -1,14 +1,29 @@
 
-<div class='recipes'>
-  <h1>Recipes</h1>
+<div class='w-full'>
+  
+  <% if @recipes.empty? %>
+  <p class='text-center text-2xl'>No recipes yet</p>
+  <% end %>
+  <% if @recipes.any? %>
+  <p class='text-center text-2xl'>Recipes</p>
+  <% end %>
+
   <ul>
     <% @recipes.each do |recipe| %>
-      <li class='border border-black w-full'>
-        <%= link_to recipe_path(recipe.id) do %>
-          <%= recipe.name %>
-          <%= recipe.description %>
+      <li class='container border border-black w-full p-3 mt-8'>
+        <%= link_to recipe_path(recipe.id), class: 'cursor-pointer' do %>
+          <div class='w-full flex flex-row justify-between p-3'> 
+            <div class='p-3 text-2xl'>
+              <%= recipe.name %>
+            </div>
+            <div class='p-3 text-xl'>
+              <%= recipe.description %>
+            </div>
+          </div>
           <% end %>
-          <%= button_to 'Remove', recipe, method: :delete, class:'bg-blue-300' %>
+          <div class='text-center'>
+          <%= button_to 'Remove', recipe, method: :delete, class:'bg-blue-300 p-3 shadow-lg' %>
+          </div>
       </li>
     <% end %>
   </ul>
