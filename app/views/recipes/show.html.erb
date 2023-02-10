@@ -1,19 +1,53 @@
-<div class='recipe'>
-  <h1><%= @recipe.name %></h1>
-  <p><%= @recipe.description %></p>
-  
-  <p><%= @recipe.preparation_time %></p>
-  <p><%= @recipe.cooking_time %></p>
-  <p><%= @recipe.public %></p>
+<div class='w-full'>
+  <h1 class="font-bold text-3xl mx-auto w-full text-center mb-4"><%= @recipe.name %></h1>  
+  <div class='flex justify-between'>
+  <div>
+  <p>Preparation time: <%= @recipe.preparation_time %></p>
+  <p>Cooking time: <%= @recipe.cooking_time %></p>
   <p>Ingredients:</p>
-  <ul>
-    <% @recipe.recipe_foods.each do |recipe_food| %>
-      <li>
-        <%= recipe_food.food.name %>
-        <%= recipe_food.quantity %>
-        <%= recipe_food.food.measurement_unit %>
-      
-      </li>
-    <% end %>
-  </ul>
+  </div>
+  <p>Public: <%= @recipe.public %></p>
+  </div>
+
+  <div class="mt-6 flex justify-between">
+  <%= link_to 'Generate Shopping List', shopping_lists_index_path, class: 'bg-blue-500 p-2'%>
+  <% if can? :create, Food %>
+  <%= link_to 'Add ingredient',  new_food_path, class: 'bg-blue-500 p-2'%>
+  <%end%>
+  </div>
+
+  <div class="w-full">
+    <div class="flex justify-between items-center border border-black mt-8 p-0">
+    <div class="flex flex-col justify-center items-center border-r border-black w-1/4 p-0 h-full">
+    <h3 class="p-3 border-b border-black w-full text-center text-2xl font-bold">Food</h3>
+    <ul>
+    <% @foods.each do |food| %>
+    <li class="text-xl font-semibold"><%= food.name %></li>
+    <%end%>
+    </ul>
+    </div>
+    <div class="flex flex-col justify-center items-center border-r border-black w-1/4 p-0 h-full"><h3 class="p-3 border-b border-black w-full text-center text-2xl font-bold">Quantity</h3>
+    <ul>
+    <% @foods.each do |food| %>
+    <li class="text-xl font-semibold"><%= food.quantity %></li>
+    <%end%>
+    </ul></div>
+    <div class="flex flex-col justify-center items-center border-r border-black w-1/4 p-0 h-full">
+    <h3 class="p-3 border-b border-black w-full text-center text-2xl font-bold">value</h3>
+    <ul>
+    <% @foods.each do |food| %>
+    <li class="text-xl font-semibold">$<%= food.price %></li>
+    <%end%>
+    </ul></div>
+    <div class="flex flex-col justify-center items-center w-1/4 p-0 h-full">
+    <h3 class="p-3 border-b border-black w-full text-center text-2xl font-bold">Action</h3>
+    <%@foods.each do |food| %>
+    <% if can? :destroy, food %>
+    <%= button_to 'Modify Remove', food_path(food), method: :delete, data: { confirm: 'Are you sure?' }, class: "text-red-500" %>
+    <%end%>
+    <%end%>
+    </div>
+    </div>
+    </div>
+
 </div>

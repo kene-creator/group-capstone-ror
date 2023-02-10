@@ -1,16 +1,18 @@
 
-<div class='recipes'>
-  <h1>Recipes</h1>
+<div class='w-full'>
+  <h1 class="font-bold text-3xl mx-auto w-full text-center">Recipes</h1>
   <ul>
     <% @recipes.each do |recipe| %>
-      <li class='border border-black w-full'>
+      <li class='border border-black w-full flex justify-between w-full'>
+        <div>
         <%= link_to recipe_path(recipe.id) do %>
-          <%= recipe.name %>
-          <%= recipe.description %>
-          <% end %>
+          <p class='text-xl font-bold'> <%= recipe.name %></p>
+        <% end %>
           <% if can? :destroy, recipe %>
-          <%= button_to 'Remove', recipe, method: :delete, class:'bg-blue-300' %>
+          <%= button_to 'Remove', recipe, method: :delete, class:'bg-blue-300 mt-6' %>
           <%end%>
+        </div>
+          <%= recipe.description %>
       </li>
     <% end %>
   </ul>
