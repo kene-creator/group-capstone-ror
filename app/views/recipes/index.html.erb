@@ -5,7 +5,7 @@
     <% @recipes.each do |recipe| %>
       <li class='border border-black w-full flex justify-between'>
         <div>
-       <%= link_to recipe.name, recipe_path(recipe.id), class: "text-xl font-bold" %>
+       <%= link_to recipe.name, recipe_path(recipe.id), class: "text-xl font-bold text-blue-300" %>
           <% if can? :destroy, recipe %>
           <%= button_to 'Remove', recipe, method: :delete, class:'bg-blue-300 mt-6', data: {confirm: "Are you sure?"} %>
           <%end%>
